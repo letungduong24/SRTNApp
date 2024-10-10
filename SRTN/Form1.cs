@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,8 +72,16 @@ namespace SRTN
 
         private void buttonCalculate_Click(object sender, EventArgs e)
         {
-            // Tính toán SRTN
+            // Reset thông tin các tiến trình
+            foreach (var process in processes)
+            {
+                process.WaitingTime = 0;
+                process.CompletionTime = 0;
+                process.RemainingTime = process.BurstTime; // Reset RemainingTime
+            }
+
             List<Process> completedProcesses = new List<Process>();
+            currentTime = 0; // Reset currentTime
 
             while (processes.Any(p => p.CompletionTime == 0))
             {
@@ -120,9 +128,17 @@ namespace SRTN
                 dgv_process.Rows[rowIndex].Cells["CompletionTime"].Value = process.CompletionTime;
             }
 
-            // Tính thời gian chờ trung bình
-            double averageWaitingTime = completedProcesses.Average(p => p.WaitingTime);
-            MessageBox.Show("Thời gian chờ trung bình: " + averageWaitingTime);
+            // Kiểm tra nếu completedProcesses không rỗng trước khi tính thời gian chờ trung bình
+            if (completedProcesses.Count > 0)
+            {
+                double averageWaitingTime = completedProcesses.Average(p => p.WaitingTime);
+                MessageBox.Show("Thời gian chờ trung bình: " + averageWaitingTime);
+            }
+            else
+            {
+                MessageBox.Show("Không có tiến trình nào hoàn thành.");
+            }
         }
+
     }
 }
