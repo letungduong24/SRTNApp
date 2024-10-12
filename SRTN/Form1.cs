@@ -43,8 +43,8 @@ namespace SRTN
             dgv_process.Columns.Add("ProcessID", "Mã tiến trình");
             dgv_process.Columns.Add("ArrivalTime", "Thời gian đến");
             dgv_process.Columns.Add("BurstTime", "Thời gian thực thi");
-            dgv_process.Columns.Add("WaitingTime", "Thời gian chờ");
             dgv_process.Columns.Add("CompletionTime", "Thời gian hoàn thành");
+            dgv_process.Columns.Add("WaitingTime", "Thời gian chờ");
             dgv_process.AllowUserToAddRows = false;
 
             // Thiết lập các cột WaitingTime và CompletionTime là chỉ đọc
